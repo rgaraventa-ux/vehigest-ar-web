@@ -505,7 +505,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import {
   getFirestore, collection, doc,
   onSnapshot, addDoc, updateDoc, deleteDoc,
-  serverTimestamp, query, orderBy, getDocs
+  serverTimestamp, query, orderBy, getDocs, where
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import {
   getAuth, onAuthStateChanged,
@@ -582,7 +582,8 @@ function buildAlerts(vList){
 
 // ── FIREBASE LISTENER ──
 function startVehicleListener(){
-  const q=query(collection(db,"vehicles"),orderBy("createdAt","desc"));
+  const uid=auth.currentUser.uid;
+  const q=query(collection(db,"vehicles"),where("userId","==",uid),orderBy("createdAt","desc"));
   unsubVehicles=onSnapshot(q,async(snap)=>{
     const vList=await Promise.all(snap.docs.map(async(vDoc)=>{
       const v={id:vDoc.id,...vDoc.data()};
@@ -961,7 +962,7 @@ window.saveVehicle=async function(){
     gnc:document.getElementById("m-gnc").value==="si",
     km:parseInt(document.getElementById("m-km").value)||0,
     color:document.getElementById("m-color").value,
-    icon:"🚗",createdAt:serverTimestamp()
+    icon:"🚗",userId:auth.currentUser.uid,createdAt:serverTimestamp()
   });
   closeModal();
   showToast(`${brand} ${model} agregado`);
