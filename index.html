@@ -747,210 +747,210 @@ function renderCurrentPage(){
 }
 
 // ── SPINNER HTML ──
-function spinnerHtml(){return`<div class="loading-wrap"><div class="spinner"></div></div>`}
+function spinnerHtml(){return`<div class="loading-wrap"><div class="spinner"><\/div><\/div>`}
 
 // ── DASHBOARD ──
 function renderDashboard(){
-  if(isLoading) return`<div class="page">${spinnerHtml()}</div>`;
+  if(isLoading) return`<div class="page">${spinnerHtml()}<\/div>`;
   const alerts=buildAlerts(vehicles);
   const topAlerts=alerts.filter(a=>a.level!=="ok").slice(0,5);
   return`
   <div class="page fade-up">
     <div class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-icon">🚗</span><span class="kpi-badge blue">Flota</span></div>
-        <div class="kpi-value">${vehicles.length}</div>
-        <div class="kpi-label">Vehículos totales</div>
-      </div>
+        <div class="kpi-top"><span class="kpi-icon">🚗<\/span><span class="kpi-badge blue">Flota<\/span><\/div>
+        <div class="kpi-value">${vehicles.length}<\/div>
+        <div class="kpi-label">Vehículos totales<\/div>
+      <\/div>
       <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-icon">✅</span><span class="kpi-badge ok">OK</span></div>
-        <div class="kpi-value" style="color:var(--ok)">${vehicles.filter(v=>v.status==="ok").length}</div>
-        <div class="kpi-label">Al día</div>
-      </div>
+        <div class="kpi-top"><span class="kpi-icon">✅<\/span><span class="kpi-badge ok">OK<\/span><\/div>
+        <div class="kpi-value" style="color:var(--ok)">${vehicles.filter(v=>v.status==="ok").length}<\/div>
+        <div class="kpi-label">Al día<\/div>
+      <\/div>
       <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-icon">⚠️</span><span class="kpi-badge warn">Atención</span></div>
-        <div class="kpi-value" style="color:var(--warn)">${vehicles.filter(v=>v.status==="warn").length}</div>
-        <div class="kpi-label">Por vencer pronto</div>
-      </div>
+        <div class="kpi-top"><span class="kpi-icon">⚠️<\/span><span class="kpi-badge warn">Atención<\/span><\/div>
+        <div class="kpi-value" style="color:var(--warn)">${vehicles.filter(v=>v.status==="warn").length}<\/div>
+        <div class="kpi-label">Por vencer pronto<\/div>
+      <\/div>
       <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-icon">🚨</span><span class="kpi-badge bad">Crítico</span></div>
-        <div class="kpi-value" style="color:var(--danger)">${vehicles.filter(v=>v.status==="bad").length}</div>
-        <div class="kpi-label">Requieren acción</div>
-      </div>
-    </div>
+        <div class="kpi-top"><span class="kpi-icon">🚨<\/span><span class="kpi-badge bad">Crítico<\/span><\/div>
+        <div class="kpi-value" style="color:var(--danger)">${vehicles.filter(v=>v.status==="bad").length}<\/div>
+        <div class="kpi-label">Requieren acción<\/div>
+      <\/div>
+    <\/div>
     ${vehicles.length===0?`
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center">
-        <div style="width:100%;max-width:340px;margin-bottom:28px" id="welcome-svg-wrap"></div>
-        <div style="font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px">¡Bienvenido a VehiGest AR!</div>
-        <div style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:280px;line-height:1.6">Todavía no tenés vehículos cargados. Agregá el primero para empezar a gestionar tu flota.</div>
-        <button class="btn-sm accent" style="padding:12px 28px;font-size:15px;border-radius:12px" onclick="goPage('vehicles')">🚗 Agregar mi primer vehículo</button>
-      </div>`:`
+        <div style="width:100%;max-width:340px;margin-bottom:28px" id="welcome-svg-wrap"><\/div>
+        <div style="font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px">¡Bienvenido a VehiGest AR!<\/div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:280px;line-height:1.6">Todavía no tenés vehículos cargados. Agregá el primero para empezar a gestionar tu flota.<\/div>
+        <button class="btn-sm accent" style="padding:12px 28px;font-size:15px;border-radius:12px" onclick="goPage('vehicles')">🚗 Agregar mi primer vehículo<\/button>
+      <\/div>`:`
     <div id="dash-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
       <div>
-        <div class="sec-header"><span class="sec-title">Flota reciente</span><button class="btn-sm" onclick="goPage('vehicles')">Ver todo →</button></div>
+        <div class="sec-header"><span class="sec-title">Flota reciente<\/span><button class="btn-sm" onclick="goPage('vehicles')">Ver todo →<\/button><\/div>
         <div style="display:flex;flex-direction:column;gap:10px">
           ${vehicles.slice(0,3).map(v=>`
             <div class="vehicle-card" style="padding:14px 16px" onclick="goPage('vehicle-detail','${v.id}')">
               <div style="display:flex;align-items:center;gap:12px">
-                <span style="font-size:24px">${v.icon||"🚗"}</span>
+                <span style="font-size:24px">${v.icon||"🚗"}<\/span>
                 <div style="flex:1">
-                  <div style="font-size:11px;color:var(--muted)">${v.brand}</div>
-                  <div style="font-size:15px;font-weight:800;color:var(--navy)">${v.model}</div>
-                </div>
-                <div class="status-pill status-${v.status}">${v.status==="ok"?"Al día":v.status==="warn"?"Atención":"Crítico"}</div>
-              </div>
-            </div>
+                  <div style="font-size:11px;color:var(--muted)">${v.brand}<\/div>
+                  <div style="font-size:15px;font-weight:800;color:var(--navy)">${v.model}<\/div>
+                <\/div>
+                <div class="status-pill status-${v.status}">${v.status==="ok"?"Al día":v.status==="warn"?"Atención":"Crítico"}<\/div>
+              <\/div>
+            <\/div>
           `).join("")}
-        </div>
-      </div>
+        <\/div>
+      <\/div>
       <div>
-        <div class="sec-header"><span class="sec-title">Alertas urgentes</span><button class="btn-sm" onclick="goPage('alerts')">Ver todas →</button></div>
-        ${topAlerts.length===0?`<div style="font-size:13px;color:var(--muted);padding:20px 0">✅ Todo al día</div>`:`
+        <div class="sec-header"><span class="sec-title">Alertas urgentes<\/span><button class="btn-sm" onclick="goPage('alerts')">Ver todas →<\/button><\/div>
+        ${topAlerts.length===0?`<div style="font-size:13px;color:var(--muted);padding:20px 0">✅ Todo al día<\/div>`:`
         <div class="alerts-list">
           ${topAlerts.map(a=>`
             <div class="alert-row ${a.level}" style="cursor:pointer" onclick="goPage('vehicle-detail','${a.vehicleId}')">
-              <span class="alert-icon">${a.icon}</span>
+              <span class="alert-icon">${a.icon}<\/span>
               <div class="alert-info">
-                <div class="alert-title">${a.type} — ${a.vehicle}</div>
-                <div class="alert-sub" style="font-family:monospace;font-size:11px;letter-spacing:1px">${a.plate}</div>
-              </div>
+                <div class="alert-title">${a.type} — ${a.vehicle}<\/div>
+                <div class="alert-sub" style="font-family:monospace;font-size:11px;letter-spacing:1px">${a.plate}<\/div>
+              <\/div>
               <div class="alert-days">
-                <div class="alert-days-num" style="color:${daysColor(a.daysLeft)}">${Math.abs(a.daysLeft)}</div>
-                <div class="alert-days-lbl">${a.daysLeft<0?"días exp":"días"}</div>
-              </div>
-            </div>
+                <div class="alert-days-num" style="color:${daysColor(a.daysLeft)}">${Math.abs(a.daysLeft)}<\/div>
+                <div class="alert-days-lbl">${a.daysLeft<0?"días exp":"días"}<\/div>
+              <\/div>
+            <\/div>
           `).join("")}
-        </div>`}
-      </div>
-    </div>`}
-  </div>`;
+        <\/div>`}
+      <\/div>
+    <\/div>`}
+  <\/div>`;
 }
 
 // ── VEHICLES LIST ──
 function renderVehicles(){
-  if(isLoading) return`<div class="page">${spinnerHtml()}</div>`;
+  if(isLoading) return`<div class="page">${spinnerHtml()}<\/div>`;
   return`
   <div class="page fade-up">
     <div class="sec-header" style="margin-bottom:20px">
-      <span class="sec-title" style="font-size:17px">Todos los vehículos</span>
-      <button class="btn-sm accent" onclick="openAddVehicleModal()">＋ Agregar vehículo</button>
-    </div>
+      <span class="sec-title" style="font-size:17px">Todos los vehículos<\/span>
+      <button class="btn-sm accent" onclick="openAddVehicleModal()">＋ Agregar vehículo<\/button>
+    <\/div>
     <div class="vehicle-grid">
       ${vehicles.map(v=>`
         <div class="vehicle-card" onclick="goPage('vehicle-detail','${v.id}')">
-          <div class="vc-top"><span class="vc-icon">${v.icon||"🚗"}</span><div class="status-pill status-${v.status}">${v.status==="ok"?"Al día":v.status==="warn"?"Atención":"Crítico"}</div></div>
-          <div class="vc-brand">${v.brand} ${v.year||""}</div>
-          <div class="vc-model">${v.model}</div>
-          <div class="vc-plate">${v.plate}</div>
+          <div class="vc-top"><span class="vc-icon">${v.icon||"🚗"}<\/span><div class="status-pill status-${v.status}">${v.status==="ok"?"Al día":v.status==="warn"?"Atención":"Crítico"}<\/div><\/div>
+          <div class="vc-brand">${v.brand} ${v.year||""}<\/div>
+          <div class="vc-model">${v.model}<\/div>
+          <div class="vc-plate">${v.plate}<\/div>
           <hr class="vc-divider"/>
           <div class="vc-stats">
-            <div><div class="vc-stat-val">${fmtNum(v.km)} km</div><div class="vc-stat-lbl">Kilometraje</div></div>
-            <div><div class="vc-stat-val">${v.fuel||""}${v.gnc?" + GNC":""}</div><div class="vc-stat-lbl">Combustible</div></div>
-          </div>
+            <div><div class="vc-stat-val">${fmtNum(v.km)} km<\/div><div class="vc-stat-lbl">Kilometraje<\/div><\/div>
+            <div><div class="vc-stat-val">${v.fuel||""}${v.gnc?" + GNC":""}<\/div><div class="vc-stat-lbl">Combustible<\/div><\/div>
+          <\/div>
           ${v.docs.some(d=>d.daysLeft!==null&&d.daysLeft<30)?`
           <div class="vc-alerts">
             ${v.docs.filter(d=>d.daysLeft!==null&&d.daysLeft<30).map(d=>`
-              <span class="alert-tag ${d.daysLeft<0?"bad":"warn"}">${d.type} ${daysLabel(d.daysLeft)}</span>
+              <span class="alert-tag ${d.daysLeft<0?"bad":"warn"}">${d.type} ${daysLabel(d.daysLeft)}<\/span>
             `).join("")}
-          </div>`:""}
-        </div>
+          <\/div>`:""}
+        <\/div>
       `).join("")}
       <div class="vehicle-card vehicle-card-add" onclick="openAddVehicleModal()">
-        <span style="font-size:36px;margin-bottom:10px;opacity:.35;color:var(--blue)">＋</span>
-        <span style="font-size:14px;color:var(--muted);font-weight:600">Agregar vehículo</span>
-      </div>
-    </div>
-  </div>`;
+        <span style="font-size:36px;margin-bottom:10px;opacity:.35;color:var(--blue)">＋<\/span>
+        <span style="font-size:14px;color:var(--muted);font-weight:600">Agregar vehículo<\/span>
+      <\/div>
+    <\/div>
+  <\/div>`;
 }
 
 // ── VEHICLE DETAIL ──
 function renderVehicleDetail(){
   const vehicle=vehicles.find(v=>v.id===selectedVehicleId);
-  if(!vehicle) return`<div class="page"><div class="empty"><div class="empty-icon">🚗</div><div class="empty-msg">Vehículo no encontrado</div></div></div>`;
+  if(!vehicle) return`<div class="page"><div class="empty"><div class="empty-icon">🚗<\/div><div class="empty-msg">Vehículo no encontrado<\/div><\/div><\/div>`;
   const totalCost=vehicle.services.filter(s=>s.done).reduce((a,s)=>a+(s.cost||0),0);
   const tab=window._detailTab||"docs";
   return`
   <div class="page fade-up">
-    <div style="margin-bottom:16px"><button class="btn-sm" onclick="goPage('vehicles')">← Volver</button></div>
+    <div style="margin-bottom:16px"><button class="btn-sm" onclick="goPage('vehicles')">← Volver<\/button><\/div>
     <div class="detail-header">
-      <span class="detail-img">${vehicle.icon||"🚗"}</span>
+      <span class="detail-img">${vehicle.icon||"🚗"}<\/span>
       <div class="detail-info">
-        <div class="detail-make">${vehicle.brand} · ${vehicle.year||""}</div>
-        <div class="detail-model">${vehicle.model}</div>
-        <div class="detail-plate">${vehicle.plate}</div>
+        <div class="detail-make">${vehicle.brand} · ${vehicle.year||""}<\/div>
+        <div class="detail-model">${vehicle.model}<\/div>
+        <div class="detail-plate">${vehicle.plate}<\/div>
         <div class="detail-meta">
-          <div class="detail-meta-item">Combustible: <strong>${vehicle.fuel||""}${vehicle.gnc?" + GNC":""}</strong></div>
-          <div class="detail-meta-item">Kilometraje: <strong>${fmtNum(vehicle.km)} km</strong></div>
-          <div class="detail-meta-item">Color: <strong>${vehicle.color||"—"}</strong></div>
-        </div>
-      </div>
+          <div class="detail-meta-item">Combustible: <strong>${vehicle.fuel||""}${vehicle.gnc?" + GNC":""}<\/strong><\/div>
+          <div class="detail-meta-item">Kilometraje: <strong>${fmtNum(vehicle.km)} km<\/strong><\/div>
+          <div class="detail-meta-item">Color: <strong>${vehicle.color||"—"}<\/strong><\/div>
+        <\/div>
+      <\/div>
       <div class="detail-actions">
         <div class="status-pill status-${vehicle.status}" style="font-size:13px;padding:6px 14px;text-align:center">
           ${vehicle.status==="ok"?"✅ Al día":vehicle.status==="warn"?"⚠️ Atención":"🚨 Crítico"}
-        </div>
-        <button class="btn-sm" style="margin-top:8px" onclick="openAddDocModal()">＋ Documento</button>
-        <button class="btn-sm gold" onclick="openAddServiceModal()">＋ Service</button>
-      </div>
-    </div>
+        <\/div>
+        <button class="btn-sm" style="margin-top:8px" onclick="openAddDocModal()">＋ Documento<\/button>
+        <button class="btn-sm gold" onclick="openAddServiceModal()">＋ Service<\/button>
+      <\/div>
+    <\/div>
     <div class="kpi-grid detail-kpis" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px">
-      <div class="kpi-card"><div class="kpi-icon">🔧</div><div class="kpi-value" style="font-size:24px">${vehicle.services.filter(s=>s.done).length}</div><div class="kpi-label">Services realizados</div></div>
-      <div class="kpi-card"><div class="kpi-icon">💰</div><div class="kpi-value" style="font-size:20px">${fmtARS(totalCost)}</div><div class="kpi-label">Gasto total</div></div>
-      <div class="kpi-card"><div class="kpi-icon">📋</div>
+      <div class="kpi-card"><div class="kpi-icon">🔧<\/div><div class="kpi-value" style="font-size:24px">${vehicle.services.filter(s=>s.done).length}<\/div><div class="kpi-label">Services realizados<\/div><\/div>
+      <div class="kpi-card"><div class="kpi-icon">💰<\/div><div class="kpi-value" style="font-size:20px">${fmtARS(totalCost)}<\/div><div class="kpi-label">Gasto total<\/div><\/div>
+      <div class="kpi-card"><div class="kpi-icon">📋<\/div>
         <div class="kpi-value" style="font-size:24px;color:${vehicle.docs.some(d=>d.daysLeft!==null&&d.daysLeft<0)?"var(--danger)":vehicle.docs.some(d=>d.daysLeft!==null&&d.daysLeft<30)?"var(--warn)":"var(--ok)"}">
           ${vehicle.docs.filter(d=>d.daysLeft!==null&&d.daysLeft<0).length>0?"⚠":"✓"}
-        </div>
-        <div class="kpi-label">Estado documentación</div>
-      </div>
-    </div>
+        <\/div>
+        <div class="kpi-label">Estado documentación<\/div>
+      <\/div>
+    <\/div>
     <div class="tabs">
-      <div class="tab ${tab==="docs"?"active":""}" onclick="switchTab('docs')">📋 Documentos</div>
-      <div class="tab ${tab==="services"?"active":""}" onclick="switchTab('services')">🔧 Historial de service</div>
-    </div>
+      <div class="tab ${tab==="docs"?"active":""}" onclick="switchTab('docs')">📋 Documentos<\/div>
+      <div class="tab ${tab==="services"?"active":""}" onclick="switchTab('services')">🔧 Historial de service<\/div>
+    <\/div>
     <div id="tab-content">
       ${tab==="docs"?renderDocsTab(vehicle):renderServicesTab(vehicle)}
-    </div>
-  </div>`;
+    <\/div>
+  <\/div>`;
 }
 
 function renderDocsTab(vehicle){
-  if(vehicle.docs.length===0) return`<div class="empty"><div class="empty-icon">📋</div><div class="empty-msg">Sin documentos</div><div class="empty-sub">Cargá el primero con el botón de arriba</div></div>`;
+  if(vehicle.docs.length===0) return`<div class="empty"><div class="empty-icon">📋<\/div><div class="empty-msg">Sin documentos<\/div><div class="empty-sub">Cargá el primero con el botón de arriba<\/div><\/div>`;
   return`<div class="docs-grid fade-in">${vehicle.docs.map(d=>{
     const cls=d.daysLeft===null?"":d.daysLeft<0?"expired":d.daysLeft<30?"warning":"";
     return`
     <div class="doc-card ${cls}">
-      <div class="doc-icon">${d.type.includes("VTV")?"🔍":d.type.includes("Seguro")?"🛡️":d.type.includes("GNC")?"⚡":d.type.includes("Patente")?"📋":"📄"}</div>
-      <div class="doc-name">${d.type}</div>
-      <div class="doc-issuer">${d.issuer||"—"}</div>
-      ${d.policy?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-family:monospace">${d.policy}</div>`:""}
+      <div class="doc-icon">${d.type.includes("VTV")?"🔍":d.type.includes("Seguro")?"🛡️":d.type.includes("GNC")?"⚡":d.type.includes("Patente")?"📋":"📄"}<\/div>
+      <div class="doc-name">${d.type}<\/div>
+      <div class="doc-issuer">${d.issuer||"—"}<\/div>
+      ${d.policy?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-family:monospace">${d.policy}<\/div>`:""}
       ${d.expiry?`
-        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">VENCE</div>
-        <div style="font-weight:700;font-size:14px;color:var(--navy)">${d.expiry}</div>
-        <div class="doc-days" style="background:${d.daysLeft<0?"var(--danger-bg)":d.daysLeft<30?"var(--warn-bg)":"var(--ok-bg)"};color:${daysColor(d.daysLeft)}">${daysLabel(d.daysLeft)}</div>
-      `:`<div style="font-size:12px;color:var(--muted);font-style:italic">Sin fecha de vencimiento</div>`}
-      ${d.paid>0?`<div style="font-size:11px;color:var(--muted);margin-top:8px">Pagado: <strong style="color:var(--navy)">${fmtARS(d.paid)}</strong></div>`:""}
-    </div>`;
-  }).join("")}</div>`;
+        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">VENCE<\/div>
+        <div style="font-weight:700;font-size:14px;color:var(--navy)">${d.expiry}<\/div>
+        <div class="doc-days" style="background:${d.daysLeft<0?"var(--danger-bg)":d.daysLeft<30?"var(--warn-bg)":"var(--ok-bg)"};color:${daysColor(d.daysLeft)}">${daysLabel(d.daysLeft)}<\/div>
+      `:`<div style="font-size:12px;color:var(--muted);font-style:italic">Sin fecha de vencimiento<\/div>`}
+      ${d.paid>0?`<div style="font-size:11px;color:var(--muted);margin-top:8px">Pagado: <strong style="color:var(--navy)">${fmtARS(d.paid)}<\/strong><\/div>`:""}
+    <\/div>`;
+  }).join("")}<\/div>`;
 }
 
 function renderServicesTab(vehicle){
-  if(vehicle.services.length===0) return`<div class="empty"><div class="empty-icon">🔧</div><div class="empty-msg">Sin services</div><div class="empty-sub">Registrá el primero con el botón de arriba</div></div>`;
+  if(vehicle.services.length===0) return`<div class="empty"><div class="empty-icon">🔧<\/div><div class="empty-msg">Sin services<\/div><div class="empty-sub">Registrá el primero con el botón de arriba<\/div><\/div>`;
   return`<div class="timeline fade-in">${vehicle.services.map(s=>`
     <div class="tl-item">
-      <div class="tl-dot ${s.done?"done":"next"}">${s.done?"✓":"→"}</div>
+      <div class="tl-dot ${s.done?"done":"next"}">${s.done?"✓":"→"}<\/div>
       <div class="tl-content">
         <div class="tl-top">
-          <span class="tl-name">${s.type}</span>
-          <span class="tl-date">${s.done?s.performedAt:`<span style="color:var(--gold);font-weight:700">Próximo</span>`}</span>
-        </div>
+          <span class="tl-name">${s.type}<\/span>
+          <span class="tl-date">${s.done?s.performedAt:`<span style="color:var(--gold);font-weight:700">Próximo<\/span>`}<\/span>
+        <\/div>
         <div class="tl-details">
-          ${s.km?`<span>Km: <strong>${fmtNum(s.km)}</strong></span>`:""}
-          ${s.nextKm?`<span>Próximo: <strong>${fmtNum(s.nextKm)} km</strong></span>`:""}
-          ${s.workshop?`<span>Taller: <strong>${s.workshop}</strong></span>`:""}
-          ${s.cost>0?`<span>Costo: <strong style="color:var(--blue)">${fmtARS(s.cost)}</strong></span>`:""}
-        </div>
-      </div>
-    </div>
-  `).join("")}</div>`;
+          ${s.km?`<span>Km: <strong>${fmtNum(s.km)}<\/strong><\/span>`:""}
+          ${s.nextKm?`<span>Próximo: <strong>${fmtNum(s.nextKm)} km<\/strong><\/span>`:""}
+          ${s.workshop?`<span>Taller: <strong>${s.workshop}<\/strong><\/span>`:""}
+          ${s.cost>0?`<span>Costo: <strong style="color:var(--blue)">${fmtARS(s.cost)}<\/strong><\/span>`:""}
+        <\/div>
+      <\/div>
+    <\/div>
+  `).join("")}<\/div>`;
 }
 
 window.switchTab=function(tab){
@@ -960,7 +960,7 @@ window.switchTab=function(tab){
 
 // ── ALERTS PAGE ──
 function renderAlerts(){
-  if(isLoading) return`<div class="page">${spinnerHtml()}</div>`;
+  if(isLoading) return`<div class="page">${spinnerHtml()}<\/div>`;
   const alerts=buildAlerts(vehicles);
   const critical=alerts.filter(a=>a.level==="critical");
   const warning=alerts.filter(a=>a.level==="warning");
@@ -968,47 +968,47 @@ function renderAlerts(){
   function section(title,color,items){
     if(!items.length) return"";
     return`
-    <div class="alerts-section-title" style="color:${color}">${title}</div>
+    <div class="alerts-section-title" style="color:${color}">${title}<\/div>
     <div class="alerts-list">
       ${items.map(a=>`
         <div class="alert-row ${a.level}" style="cursor:pointer" onclick="goPage('vehicle-detail','${a.vehicleId}')">
-          <span class="alert-icon">${a.icon}</span>
+          <span class="alert-icon">${a.icon}<\/span>
           <div class="alert-info">
-            <div class="alert-title">${a.msg}</div>
-            <div class="alert-sub"><span style="font-family:monospace;font-size:11px;letter-spacing:1px">${a.plate}</span><span style="margin:0 8px;opacity:.4">·</span><span>${a.vehicle}</span></div>
-          </div>
+            <div class="alert-title">${a.msg}<\/div>
+            <div class="alert-sub"><span style="font-family:monospace;font-size:11px;letter-spacing:1px">${a.plate}<\/span><span style="margin:0 8px;opacity:.4">·<\/span><span>${a.vehicle}<\/span><\/div>
+          <\/div>
           <div class="alert-days">
-            <div class="alert-days-num" style="color:${daysColor(a.daysLeft)}">${a.daysLeft!==null?Math.abs(a.daysLeft):"—"}</div>
-            <div class="alert-days-lbl">${a.daysLeft<0?"días exp.":"días rest."}</div>
-          </div>
-        </div>
+            <div class="alert-days-num" style="color:${daysColor(a.daysLeft)}">${a.daysLeft!==null?Math.abs(a.daysLeft):"—"}<\/div>
+            <div class="alert-days-lbl">${a.daysLeft<0?"días exp.":"días rest."}<\/div>
+          <\/div>
+        <\/div>
       `).join("")}
-    </div>`;
+    <\/div>`;
   }
   return`
   <div class="page fade-up">
     <div class="alerts-summary">
       <div class="alerts-summary-item">
-        <div class="alerts-summary-num" style="color:var(--danger)">${critical.length}</div>
-        <div class="alerts-summary-lbl">Críticas</div>
-      </div>
-      <div style="width:1px;background:var(--border)"></div>
+        <div class="alerts-summary-num" style="color:var(--danger)">${critical.length}<\/div>
+        <div class="alerts-summary-lbl">Críticas<\/div>
+      <\/div>
+      <div style="width:1px;background:var(--border)"><\/div>
       <div class="alerts-summary-item">
-        <div class="alerts-summary-num" style="color:var(--warn)">${warning.length}</div>
-        <div class="alerts-summary-lbl">Advertencias</div>
-      </div>
-      <div style="width:1px;background:var(--border)"></div>
+        <div class="alerts-summary-num" style="color:var(--warn)">${warning.length}<\/div>
+        <div class="alerts-summary-lbl">Advertencias<\/div>
+      <\/div>
+      <div style="width:1px;background:var(--border)"><\/div>
       <div class="alerts-summary-item">
-        <div class="alerts-summary-num" style="color:var(--ok)">${ok.length}</div>
-        <div class="alerts-summary-lbl">Al día</div>
-      </div>
-      <div style="margin-left:auto;align-self:center;font-size:12px;color:var(--muted)">Tocá una alerta para ver el vehículo</div>
-    </div>
-    ${alerts.length===0?`<div class="empty"><div class="empty-icon">🔔</div><div class="empty-msg">Sin alertas por ahora</div><div class="empty-sub">Cargá documentos con vencimiento para que aparezcan acá</div></div>`:""}
+        <div class="alerts-summary-num" style="color:var(--ok)">${ok.length}<\/div>
+        <div class="alerts-summary-lbl">Al día<\/div>
+      <\/div>
+      <div style="margin-left:auto;align-self:center;font-size:12px;color:var(--muted)">Tocá una alerta para ver el vehículo<\/div>
+    <\/div>
+    ${alerts.length===0?`<div class="empty"><div class="empty-icon">🔔<\/div><div class="empty-msg">Sin alertas por ahora<\/div><div class="empty-sub">Cargá documentos con vencimiento para que aparezcan acá<\/div><\/div>`:""}
     ${section("🚨 Requieren acción inmediata","var(--danger)",critical)}
     ${section("⚠️ Próximos a vencer","var(--warn)",warning)}
     ${section("✅ En orden","var(--ok)",ok)}
-  </div>`;
+  <\/div>`;
 }
 
 // ── MODALS ──
@@ -1017,31 +1017,31 @@ window.openAddVehicleModal=function(){
   <div class="modal-overlay" onclick="closeModalOnBg(event)">
     <div class="modal">
       <div class="modal-header">
-        <span class="modal-title">🚗 Agregar vehículo</span>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-      </div>
+        <span class="modal-title">🚗 Agregar vehículo<\/span>
+        <button class="modal-close" onclick="closeModal()">✕<\/button>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Marca *</label><input id="m-brand" placeholder="Toyota"/></div>
-        <div class="field"><label>Modelo *</label><input id="m-model" placeholder="Hilux"/></div>
-      </div>
+        <div class="field"><label>Marca *<\/label><input id="m-brand" placeholder="Toyota"/><\/div>
+        <div class="field"><label>Modelo *<\/label><input id="m-model" placeholder="Hilux"/><\/div>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Año</label><input id="m-year" type="number" value="2024"/></div>
-        <div class="field"><label>Patente *</label><input id="m-plate" placeholder="AB999CD" style="font-family:monospace;letter-spacing:2px" oninput="this.value=this.value.toUpperCase()"/></div>
-      </div>
+        <div class="field"><label>Año<\/label><input id="m-year" type="number" value="2024"/><\/div>
+        <div class="field"><label>Patente *<\/label><input id="m-plate" placeholder="AB999CD" style="font-family:monospace;letter-spacing:2px" oninput="this.value=this.value.toUpperCase()"/><\/div>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Combustible</label><select id="m-fuel"><option>Nafta</option><option>Diesel</option><option>GNC</option><option>Eléctrico</option><option>Híbrido</option></select></div>
-        <div class="field"><label>Kilometraje</label><input id="m-km" type="number" value="0"/></div>
-      </div>
+        <div class="field"><label>Combustible<\/label><select id="m-fuel"><option>Nafta<\/option><option>Diesel<\/option><option>GNC<\/option><option>Eléctrico<\/option><option>Híbrido<\/option><\/select><\/div>
+        <div class="field"><label>Kilometraje<\/label><input id="m-km" type="number" value="0"/><\/div>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Color</label><input id="m-color" placeholder="Blanco"/></div>
-        <div class="field"><label>¿Tiene GNC?</label><select id="m-gnc"><option value="no">No</option><option value="si">Sí</option></select></div>
-      </div>
+        <div class="field"><label>Color<\/label><input id="m-color" placeholder="Blanco"/><\/div>
+        <div class="field"><label>¿Tiene GNC?<\/label><select id="m-gnc"><option value="no">No<\/option><option value="si">Sí<\/option><\/select><\/div>
+      <\/div>
       <div class="modal-footer">
-        <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-        <button class="btn-save" id="modal-save-btn" onclick="saveVehicle()">Guardar vehículo</button>
-      </div>
-    </div>
-  </div>`;
+        <button class="btn-cancel" onclick="closeModal()">Cancelar<\/button>
+        <button class="btn-save" id="modal-save-btn" onclick="saveVehicle()">Guardar vehículo<\/button>
+      <\/div>
+    <\/div>
+  <\/div>`;
 }
 
 window.saveVehicle=async function(){
@@ -1070,28 +1070,28 @@ window.openAddServiceModal=function(){
   <div class="modal-overlay" onclick="closeModalOnBg(event)">
     <div class="modal">
       <div class="modal-header">
-        <span class="modal-title">🔧 Registrar service</span>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-      </div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;font-family:monospace">${vehicle.brand} ${vehicle.model} · ${vehicle.plate}</div>
-      <div class="field"><label>Tipo de service *</label>
-        <select id="s-type">${SERVICE_CATALOG.map(s=>`<option>${s}</option>`).join("")}</select>
-      </div>
+        <span class="modal-title">🔧 Registrar service<\/span>
+        <button class="modal-close" onclick="closeModal()">✕<\/button>
+      <\/div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;font-family:monospace">${vehicle.brand} ${vehicle.model} · ${vehicle.plate}<\/div>
+      <div class="field"><label>Tipo de service *<\/label>
+        <select id="s-type">${SERVICE_CATALOG.map(s=>`<option>${s}<\/option>`).join("")}<\/select>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Fecha *</label><input id="s-date" type="date"/></div>
-        <div class="field"><label>Km al momento *</label><input id="s-km" type="number" placeholder="87000"/></div>
-      </div>
+        <div class="field"><label>Fecha *<\/label><input id="s-date" type="date"/><\/div>
+        <div class="field"><label>Km al momento *<\/label><input id="s-km" type="number" placeholder="87000"/><\/div>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Próximo service (km)</label><input id="s-nextkm" type="number" placeholder="92000"/></div>
-        <div class="field"><label>Costo total (ARS)</label><input id="s-cost" type="number" placeholder="28000"/></div>
-      </div>
-      <div class="field"><label>Taller / Concesionaria</label><input id="s-workshop" placeholder="Nombre del taller"/></div>
+        <div class="field"><label>Próximo service (km)<\/label><input id="s-nextkm" type="number" placeholder="92000"/><\/div>
+        <div class="field"><label>Costo total (ARS)<\/label><input id="s-cost" type="number" placeholder="28000"/><\/div>
+      <\/div>
+      <div class="field"><label>Taller / Concesionaria<\/label><input id="s-workshop" placeholder="Nombre del taller"/><\/div>
       <div class="modal-footer">
-        <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-        <button class="btn-save" id="modal-save-btn" onclick="saveService()">Guardar service</button>
-      </div>
-    </div>
-  </div>`;
+        <button class="btn-cancel" onclick="closeModal()">Cancelar<\/button>
+        <button class="btn-save" id="modal-save-btn" onclick="saveService()">Guardar service<\/button>
+      <\/div>
+    <\/div>
+  <\/div>`;
 }
 
 window.saveService=async function(){
@@ -1120,27 +1120,27 @@ window.openAddDocModal=function(){
   <div class="modal-overlay" onclick="closeModalOnBg(event)">
     <div class="modal">
       <div class="modal-header">
-        <span class="modal-title">📋 Cargar documento</span>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-      </div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;font-family:monospace">${vehicle.brand} ${vehicle.model} · ${vehicle.plate}</div>
-      <div class="field"><label>Tipo de documento *</label>
-        <select id="d-type"><option>VTV</option><option>Seguro</option><option>Patente 1°</option><option>Patente 2°</option><option>Oblea GNC</option><option>Licencia</option><option>Cédula verde</option></select>
-      </div>
+        <span class="modal-title">📋 Cargar documento<\/span>
+        <button class="modal-close" onclick="closeModal()">✕<\/button>
+      <\/div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;font-family:monospace">${vehicle.brand} ${vehicle.model} · ${vehicle.plate}<\/div>
+      <div class="field"><label>Tipo de documento *<\/label>
+        <select id="d-type"><option>VTV<\/option><option>Seguro<\/option><option>Patente 1°<\/option><option>Patente 2°<\/option><option>Oblea GNC<\/option><option>Licencia<\/option><option>Cédula verde<\/option><\/select>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Emisor / Compañía</label><input id="d-issuer" placeholder="La Caja, ARBA..."/></div>
-        <div class="field"><label>N° de póliza / referencia</label><input id="d-policy" placeholder="POL-2024-0001"/></div>
-      </div>
+        <div class="field"><label>Emisor / Compañía<\/label><input id="d-issuer" placeholder="La Caja, ARBA..."/><\/div>
+        <div class="field"><label>N° de póliza / referencia<\/label><input id="d-policy" placeholder="POL-2024-0001"/><\/div>
+      <\/div>
       <div class="field-row">
-        <div class="field"><label>Fecha de vencimiento *</label><input id="d-expiry" type="date"/></div>
-        <div class="field"><label>Monto pagado (ARS)</label><input id="d-amount" type="number" placeholder="65000"/></div>
-      </div>
+        <div class="field"><label>Fecha de vencimiento *<\/label><input id="d-expiry" type="date"/><\/div>
+        <div class="field"><label>Monto pagado (ARS)<\/label><input id="d-amount" type="number" placeholder="65000"/><\/div>
+      <\/div>
       <div class="modal-footer">
-        <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-        <button class="btn-save" id="modal-save-btn" onclick="saveDoc()">Guardar documento</button>
-      </div>
-    </div>
-  </div>`;
+        <button class="btn-cancel" onclick="closeModal()">Cancelar<\/button>
+        <button class="btn-save" id="modal-save-btn" onclick="saveDoc()">Guardar documento<\/button>
+      <\/div>
+    <\/div>
+  <\/div>`;
 }
 
 window.saveDoc=async function(){
@@ -1165,7 +1165,7 @@ window.closeModalOnBg=function(e){if(e.target===e.currentTarget) closeModal();}
 // ── TOAST ──
 window.showToast=function(msg){
   const c=document.getElementById("toast-container");
-  c.innerHTML=`<div class="toast">✅ ${msg}</div>`;
+  c.innerHTML=`<div class="toast">✅ ${msg}<\/div>`;
   setTimeout(()=>{c.innerHTML=""},2800);
 }
 
